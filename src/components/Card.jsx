@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react"
 
-import {Paper, Typography, IconButton, Button} from '@material-ui/core'
+import {Paper, Typography, IconButton, Button, useMediaQuery} from '@material-ui/core'
 import {LocationSearching, Grain, WbSunny, Cloud} from '@material-ui/icons';
 
 import moment from 'moment';
@@ -18,6 +18,9 @@ export default function Card() {
   const [refresh, setRefresh] = useState(false)
   const [unit, setUnit] = useState('metric')
   const [quote, setQuote] = useState('')
+
+  const isMobile = useMediaQuery('(max-width:600px)');
+
 
   //current weather
   useEffect(() => {
@@ -108,22 +111,22 @@ export default function Card() {
   let bottomIcon = '-'
   const day = days && days.map((item, index) => {
     if (dailyForecastDay2 && dailyForecastDay2[index].includes('cloud')) {
-      bottomIcon = <Cloud fontSize="large"/>
+      bottomIcon = <Cloud fontSize={isMobile ? 'x-large' : "large"}/>
     }
     if (dailyForecastDay2 && dailyForecastDay2[index].includes('rain')) {
-      bottomIcon = <Grain fontSize="large"/>
+      bottomIcon = <Grain fontSize={isMobile ? 'x-large' : "large"}/>
     }
     if ((dailyForecastDay2 && dailyForecastDay2[index].includes('sun'))
       || (dailyForecastDay2 && dailyForecastDay2[index].includes('clear'))) {
-      bottomIcon = <WbSunny fontSize="large"/>
+      bottomIcon = <WbSunny fontSize={isMobile ? 'x-large' : "large"}/>
     }
     return (
       <div key={index} className='forecastInner'>
         <div>{item}</div>
-        <div>{bottomIcon}</div>
+        <div className='icon'>{bottomIcon}</div>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
           <div>{dailyForecastDay && Math.round(dailyForecastDay[index])}</div>
-          <div>{dailyForecastNight && Math.round(dailyForecastNight[index])}</div>
+          <div style={{marginLeft: '2vw'}}>{dailyForecastNight && Math.round(dailyForecastNight[index])}</div>
         </div>
       </div>
     )
@@ -189,7 +192,7 @@ export default function Card() {
             <Typography className='day'>{today}</Typography>
             <div className='highLow'>
               <Typography>{Math.round(highest)}</Typography>
-              <Typography>{Math.round(lowest)}</Typography>
+              <Typography style={{marginLeft: '2vw'}}>{Math.round(lowest)}</Typography>
             </div>
           </div>
         </div>

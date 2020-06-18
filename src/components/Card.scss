@@ -183,12 +183,20 @@ $animate: all 0.4s ease-in;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      @media (max-width: $breakpoint) {
+        border-top: 1px solid #fff;
+        background: rgba(0, 0, 0, 0.4);
+      }
 
       .day {
         color: white;
         margin: 0 40px;
         font-size: 1.5rem;
         flex: 3;
+        @media (max-width: $breakpoint) {
+          margin: 0;
+          margin-left: 2vw;
+        }
       }
 
       .highLow {
@@ -199,6 +207,11 @@ $animate: all 0.4s ease-in;
         font-size: 1rem;
         justify-content: space-between;
         max-width: 4vw;
+
+        @media (max-width: $breakpoint) {
+          margin-right: 5vw;
+          max-width: 8vw;
+        }
       }
 
     }
@@ -218,11 +231,13 @@ $animate: all 0.4s ease-in;
       &::-webkit-scrollbar {
         display: none;
       }
+
       @media (max-width: $breakpoint) {
         height: 12%;
       }
 
       @media (max-width: $mobile) {
+        overflow-y: hidden;
         overflow-x: scroll;
         justify-content: unset;
       }
@@ -265,6 +280,15 @@ $animate: all 0.4s ease-in;
             width: 100%;
             justify-content: space-between;
             align-items: center;
+            font-size: 1rem;
+          }
+
+          .icon {
+            @media (max-width: $mobile) {
+              position: absolute;
+              left: 50%;
+              transform: translateX(-8%);
+            }
           }
         }
       }

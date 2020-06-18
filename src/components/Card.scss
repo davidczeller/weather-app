@@ -2,6 +2,8 @@ $breakpoint: 1024px;
 $mobile: 600px;
 $animate: all 0.4s ease-in;
 
+//TODO scrolling on bottomContainer
+
 .page {
   height: 100vh;
   width: 100vw;
@@ -192,10 +194,20 @@ $animate: all 0.4s ease-in;
         color: white;
         margin: 0 40px;
         font-size: 1.5rem;
-        flex: 3;
         @media (max-width: $breakpoint) {
-          margin: 0;
-          margin-left: 2vw;
+          margin: 0 0 0 2vw;
+        }
+      }
+
+      .sunsetSunrise {
+        color: white;
+        margin: 0 40px;
+        font-size: 1rem;
+        @media (max-width: $mobile) {
+          margin:0;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-8%);
         }
       }
 
@@ -209,7 +221,7 @@ $animate: all 0.4s ease-in;
         max-width: 4vw;
 
         @media (max-width: $breakpoint) {
-          margin-right: 5vw;
+          margin-right: 24px;
           max-width: 8vw;
         }
       }

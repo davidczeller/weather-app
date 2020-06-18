@@ -51,14 +51,42 @@ export default function Card() {
     .catch(error => console.log(error));
   }, [refresh]);
 
+  useEffect(() => {
+    const listener = event => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        setRefresh(!refresh)
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, [refresh]);
+
 
   //TODO
   // const sunset = currWeather && moment(currWeather.sys.sunset).format('hh:mm')
   // const sunrise = currWeather && moment(currWeather.sys.sunrise).format('hh:mm')
+  const sunset = currWeather && currWeather.sys.sunset
+  const sunrise = currWeather && currWeather.sys.sunrise
+  const now = moment().format('HH:mm')
+
+
+  const humanReadable = (time) => {
+    const date = new Date(time * 1000)
+    const hours = date.getHours()
+    const minutes = "0" + date.getMinutes()
+    return (
+      hours + ':' + minutes.substr(-2)
+    )
+  }
+
+  console.log(humanReadable(sunset),
+    humanReadable(sunrise))
 
   // console.log(currWeather && {currWeather})
   // console.log(forecast && {forecast})
-  // console.log({sunset, sunrise})
+  console.log({sunset})
 
   const today = moment().format('dddd');
 
@@ -95,6 +123,9 @@ export default function Card() {
   })
 
 
+  //TODO doesn't work properly
+  // should get by timestamp not like this
+  // highest at 12om every day, and lowest at 3am every day
   const dailyForecastDayArr = forecast && forecast.list.filter((value, index) => index % 8 - 5 === 0)
   const dailyForecastDay = dailyForecastDayArr && dailyForecastDayArr.map(item => item.main.temp)
   const dailyForecastDay2 = dailyForecastDayArr && dailyForecastDayArr.map(item => item.weather[0].description)
@@ -111,22 +142,25 @@ export default function Card() {
   let bottomIcon = '-'
   const day = days && days.map((item, index) => {
     if (dailyForecastDay2 && dailyForecastDay2[index].includes('cloud')) {
-      bottomIcon = <Cloud fontSize={isMobile ? 'x-large' : "large"}/>
+      bottomIcon = <Cloud fontSize={isMobile ? 'default' : "large"}/>
     }
     if (dailyForecastDay2 && dailyForecastDay2[index].includes('rain')) {
-      bottomIcon = <Grain fontSize={isMobile ? 'x-large' : "large"}/>
+      bottomIcon = <Grain fontSize={isMobile ? 'default' : "large"}/>
     }
     if ((dailyForecastDay2 && dailyForecastDay2[index].includes('sun'))
       || (dailyForecastDay2 && dailyForecastDay2[index].includes('clear'))) {
-      bottomIcon = <WbSunny fontSize={isMobile ? 'x-large' : "large"}/>
+      bottomIcon = <WbSunny fontSize={isMobile ? 'default' : "large"}/>
     }
     return (
       <div key={index} className='forecastInner'>
         <div>{item}</div>
         <div className='icon'>{bottomIcon}</div>
         <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <div>{dailyForecastDay && Math.round(dailyForecastDay[index])}</div>
-          <div style={{marginLeft: '2vw'}}>{dailyForecastNight && Math.round(dailyForecastNight[index])}</div>
+          <div>{dailyForecastNight && Math.round(dailyForecastNight[index])}</div>
+          <div style={{
+            marginLeft: '2vw',
+            color: '#ffffff9e'
+          }}>{dailyForecastDay && Math.round(dailyForecastDay[index])}</div>
         </div>
       </div>
     )
@@ -190,9 +224,12 @@ export default function Card() {
           </div>
           <div className='todayInfo'>
             <Typography className='day'>{today}</Typography>
+            <Typography className='sunsetSunrise'>
+              {now < humanReadable(sunset) ? humanReadable(sunset) : humanReadable(sunrise)}
+            </Typography>
             <div className='highLow'>
               <Typography>{Math.round(highest)}</Typography>
-              <Typography style={{marginLeft: '2vw'}}>{Math.round(lowest)}</Typography>
+              <Typography style={{marginLeft: '2vw', color: '#ffffff9e'}}>{Math.round(lowest)}</Typography>
             </div>
           </div>
         </div>

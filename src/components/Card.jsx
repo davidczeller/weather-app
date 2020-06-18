@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from "react"
 
-import {Paper, Typography, IconButton} from '@material-ui/core'
+import {Paper, Typography, IconButton, Button} from '@material-ui/core'
 import {LocationSearching, Grain, WbSunny, Cloud} from '@material-ui/icons';
-import Button from "@material-ui/core/Button";
 
 import moment from 'moment';
 

@@ -218,6 +218,9 @@ $animate: all 0.4s ease-in;
       &::-webkit-scrollbar {
         display: none;
       }
+      @media (max-width: $breakpoint) {
+        height: 12%;
+      }
 
       @media (max-width: $mobile) {
         overflow-x: scroll;
@@ -237,6 +240,9 @@ $animate: all 0.4s ease-in;
       height: 25vh;
       display: flex;
       flex-direction: column;
+      @media (max-width: $breakpoint) {
+        height: 38%;
+      }
 
       .forecast {
         display: flex;
@@ -244,12 +250,22 @@ $animate: all 0.4s ease-in;
         color: #fff;
         justify-content: space-evenly;
         align-items: center;
+        @media (max-width: $mobile) {
+          padding: 0 12px;
+          flex-direction: column;
+        }
 
         .forecastInner {
           display: flex;
           flex-direction: column;
           text-align: center;
           font-size: 1.5rem;
+          @media (max-width: $mobile) {
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+          }
         }
       }
 
@@ -260,6 +276,9 @@ $animate: all 0.4s ease-in;
         display: flex;
         justify-content: center;
         flex-direction: column;
+        @media (max-width: $mobile) {
+          display: none;
+        }
       }
     }
   }

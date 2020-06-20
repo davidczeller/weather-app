@@ -229,7 +229,14 @@ export default function Card() {
             </Typography>
             <div className='highLow'>
               <Typography>{Math.round(highest)}</Typography>
-              <Typography style={{marginLeft: '2vw', color: '#ffffff9e'}}>{Math.round(lowest)}</Typography>
+              <Typography
+                style={{
+                  marginLeft: '2vw',
+                  color: '#ffffff9e'
+                }}
+              >
+                {Math.round(lowest)}
+              </Typography>
             </div>
           </div>
         </div>
